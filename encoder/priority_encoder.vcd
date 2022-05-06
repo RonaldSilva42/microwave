@@ -1,0 +1,54 @@
+$date
+	Fri May  6 18:29:32 2022
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module priority_encoder_tb $end
+$var wire 1 ! loadn_tb $end
+$var wire 4 " digit_tb [3:0] $end
+$var reg 1 # enablen_tb $end
+$var reg 10 $ keypad_tb [9:0] $end
+$scope module uut $end
+$var wire 1 # enablen $end
+$var wire 10 % keypad [9:0] $end
+$var reg 4 & digit [3:0] $end
+$var reg 1 ! loadn $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b1 &
+b1000000000 %
+b1000000000 $
+0#
+b1 "
+0!
+$end
+#10000
+b0 "
+b0 &
+b1 $
+b1 %
+#20000
+1!
+1#
+#30000
+b1000 $
+b1000 %
+#40000
+b1 "
+b1 &
+0!
+b1000000000 $
+b1000000000 %
+0#
+#50000
+1!
+b1000010000 $
+b1000010000 %
+#60000
