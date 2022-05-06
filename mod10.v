@@ -7,12 +7,9 @@ module mod_10_bcd(
   //active low - loadn (sinc) e clrn(assinc)
   //active high - en -> quando en = 1 permite que a contagem seja feita
   //tc = 1 quando ones = 4'b000 -> reinicia a contagem
-  //zero = 1 quando tens = 4'b000
-  
-  wire [3:0] state;
-  
-  
-  assign tc = ((ones == 4'b0000) && en);
+  //zero = 1 quando ones = 4'b000
+
+  assign tc = ((ones == 4'b0000) && (en == 1)) ? 1 : 0;
   assign zero = (ones == 4'b0000) ? 1 : 0;
   
   always@(posedge clk, negedge clrn)
@@ -20,31 +17,30 @@ module mod_10_bcd(
       
       if(!clrn)
         begin
-          state <= 0;
+          ones <= 0;
         end
       else
         begin
-          if(en)
+          if(!en)
             begin
               if(!loadn)
                 begin
-                  state <= data;
+                  ones <= data;
                 end
             end
           else
             begin
-              if(state == 0)
+              if(ones == 0)
                 begin
-                  state <= 9;
+                  ones <= 9;
                 end
               else
                 begin
-                	state <= state - 1;
+                	ones <= ones - 1;
                 end
             end
         end
     end
   
-  assing ones = state;
   
 endmodule
