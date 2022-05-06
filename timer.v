@@ -7,11 +7,10 @@ module timer(
   wire en_st, en_min;
   wire zero_so, zero_st, zero_min;
   
-  mod_10_bcd unit_sec(
-    .data(data),
+  mod_10_bcd unit_sec(.data(data),
     .loadn(loadn),
     .clrn(clrn),
-    .clk(clock)
+    .clk(clock),
     .en(en),
     .ones(sec_ones),
     .tc(en_st),
@@ -21,7 +20,7 @@ module timer(
     .data(sec_ones),
     .loadn(loadn),
     .clrn(clrn),
-    .clk(clock)
+    .clk(clock),
     .en(en_st),
     .tens(sec_tens),
     .tc(en_min),
@@ -31,7 +30,7 @@ module timer(
     .data(sec_tens),
     .loadn(loadn),
     .clrn(clrn),
-    .clk(clock)
+    .clk(clock),
     .en(en_min),
     .ones(mins),
     .zero(zero_min));
@@ -39,4 +38,3 @@ module timer(
   assign zero = zero_so && zero_st && zero_min;
   
 endmodule
-  
