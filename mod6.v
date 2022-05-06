@@ -9,10 +9,8 @@ module mod_6_bcd(
   //tc = 1 quando tens = 4'b000 -> reinicia a contagem
   //zero = 1 quando tens = 4'b000
   
-  wire [3:0] state;
   
-  
-  assign tc = ((tens == 4'b0000) && en));
+  assign tc = ((tens == 4'b0000) && (en == 1)) ? 1 : 0;
   assign zero = (tens == 4'b0000) ? 1 : 0;
   
   always@(posedge clk, negedge clrn)
@@ -20,31 +18,29 @@ module mod_6_bcd(
       
       if(!clrn)
         begin
-          state <= 0;
+          tens <= 0;
         end
       else
         begin
-          if(en)
+          if(!en)
             begin
               if(!loadn)
                 begin
-                  state <= data;
+                  tens <= data;
                 end
             end
           else
             begin
-              if(state == 0)
+              if(tens == 0)
                 begin
-                  state <= 5;
+                  tens <= 5;
                 end
               else
                 begin
-                	state <= state - 1;
+                	tens <= tens - 1;
                 end
             end
         end
     end
-  
-  assing tens = state;
   
 endmodule
