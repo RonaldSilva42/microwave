@@ -5,7 +5,7 @@ module freq_div(input wire clock,
   
   always @(posedge clock)
     begin
-      if(count < 100)
+      if(count != 100)
         begin
           div_clk = 0;
         end
