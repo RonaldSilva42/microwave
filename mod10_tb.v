@@ -27,6 +27,15 @@ module mod_10_bcd_tb;
   
   initial begin
     Clear = 1;
+    En = 1;
+    #5000;
+    
+    En = 0;
+    #5000;
+    Clear = 0;
+    #5000;
+    
+    Clear = 1;
     En = 0;
     
     Load = 0;
@@ -40,21 +49,6 @@ module mod_10_bcd_tb;
     #15000;
     
     En = 0; //pausa
-    
-    #5000;
-    
-    Clear = 0; //limpa
-    
-    #5000
-    
-    Clear = 1;
-    
-    En = 1; //reinicia contagem
-    
-    #15000;
-    
-    En = 0; //pausa o cronometro
     $finish();
   end
 endmodule
-    
