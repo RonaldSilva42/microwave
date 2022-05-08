@@ -1,3 +1,4 @@
+
 module mod_6_bcd_tb;
   reg [3:0] Data;
   reg Clock, Clear, Load, En;
@@ -26,6 +27,17 @@ module mod_6_bcd_tb;
   end
   
   initial begin
+    
+    
+    Clear = 1;
+    En = 1;
+    #5000;
+    
+    En = 0;
+    #5000;
+    Clear = 0;
+    #5000;
+    
     Clear = 1;
     En = 0;
     
@@ -35,25 +47,12 @@ module mod_6_bcd_tb;
     
     #9000;
     
-    En = 1; //iniciar a cont
+    En = 1;
     
     #15000;
     
-    En = 0; //pausa
-    
-    #5000;
-    
-    Clear = 0; //limpa
-    
-    #5000
-    
-    Clear = 1;
-    
-    En = 1; //reinicia contagem
-    
-    #15000;
-    
-    En = 0; //pausa o cronometro
+    En = 0;
     $finish();
   end
 endmodule
+    
