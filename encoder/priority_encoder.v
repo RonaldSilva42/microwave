@@ -3,17 +3,17 @@ module priority_encoder (
     input enablen,
 
     output reg [3:0] digit,
-    output reg loadn
+    output reg validn
 );
 
     always @(keypad, enablen) begin
         // Está desligado, então não acontece nada
         if (enablen == 1) begin
-            loadn = 1;
+            validn = 1;
         end
 
         else begin
-            loadn = 0;
+            validn = 0;
 
             case (keypad)
                 // 1
@@ -48,7 +48,7 @@ module priority_encoder (
 
                 // Input inválido
                 default: begin
-                    loadn = 1;
+                    validn = 1;
                 end
             endcase
         end
