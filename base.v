@@ -186,7 +186,7 @@ module encoder(
 
     wire validn, div_clk, pgt;
 
-    priority_encoder p_encoder (.keypad(keypad), .enablen(enablen), .digit(D), .validn(validn));
+    priority_encoder p_encoder (.keypad(keypad), .enablen(enablen), .D(D), .validn(validn));
 
     freq_div div (.clock(clk), .div_clk(div_clk));
 
@@ -200,17 +200,16 @@ endmodule
 
 module freq_div(
     input wire clock,
-    output reg div_clk
-);
+    output reg div_clk);
   
   integer count = 0;
   
-  always @(posedge clock)
-    begin
+  always @(posedge clock) begin
       if(count != 100)
         begin
           div_clk = 0;
         end
+
       else
         begin
           count = 0;
@@ -218,7 +217,7 @@ module freq_div(
         end
       
       count = count + 1;
-    end
+  end
 endmodule
 
 module mux(
@@ -226,13 +225,13 @@ module mux(
     output reg out
 );
 
-    always @(sel, posedge pgt, clk) begin
+    always @(*) begin
         if (sel == 0) begin
-            out <= pgt;
+            out = clk;
         end
 
         else begin
-            out <= clk;
+            out = pgt;
         end
     end
 endmodule
@@ -246,72 +245,106 @@ module counter_mod7(
 
     integer count = 0;
 
+    always @(negedge clear) begin
+        if (count == 7) begin
+            count = 0;
+        end
+    end
+
     always @(posedge clk) begin
-        if (clear == 0) begin
-            count <= 0;
+        if (count < 7) begin
+            count = count + 1;
         end
 
-        else if (count < 7) begin
-            count <= count + 1;
+        if (count == 4) begin
+            pgt = 1;
         end
 
-        if (count < 4) begin
-            pgt <= 0;
-        end
-        
         else begin
-            pgt <= 1;
+            pgt = 0;
         end
     end
 endmodule
+
 
 module priority_encoder (
     input [9:0] keypad,
     input enablen,
 
-    output reg [3:0] digit,
+    output reg [3:0] D,
     output reg validn
 );
 
     always @(keypad, enablen) begin
-        // Está desligado, então não acontece nada
-        if (enablen == 1) begin
+        // O microondas está funcionando, logo não é possível pressionar nenhuma tecla
+        if (enablen == 0) begin
             validn = 1;
         end
 
         else begin
-            validn = 0;
-
             case (keypad)
                 // 1
-                10'b1000000000: digit = 4'b0001;
+                10'b1000000000: begin
+                    D = 4'b0001;
+                    validn = 0;
+                end
 
                 // 2
-                10'b0100000000: digit = 4'b0010;
+                10'b0100000000: begin
+                    D = 4'b0010;
+                    validn = 0;
+                end
                 
                 // 3
-                10'b0010000000: digit = 4'b0011;
+                10'b0010000000: begin
+                    D = 4'b0011;
+                    validn = 0;
+                end
                 
                 // 4
-                10'b0001000000: digit = 4'b0100;
+                10'b0001000000: begin
+                    D = 4'b0100;
+                    validn = 0;
+                end
 
                 // 5
-                10'b0000100000: digit = 4'b0101;
+                10'b0000100000: begin
+                    D = 4'b0101;
+                    validn = 0;
+                end
 
                 // 6
-                10'b0000010000: digit = 4'b0110;
+                10'b0000010000: begin
+                    D = 4'b0110;
+                    validn = 0;
+                end
 
                 // 7
-                10'b0000001000: digit = 4'b0111;
+                10'b0000001000: begin
+                    D = 4'b0111;
+                    validn = 0;
+                end
 
                 // 8
-                10'b1000000100: digit = 4'b1000;
+                10'b1000000100: begin
+                    D = 4'b1000;
+                    validn = 0;
+                end
 
                 // 9
-                10'b0000000010: digit = 4'b1001;
+                10'b0000000010: begin
+                    D = 4'b1001;
+                    validn = 0;
+                end
 
                 // 0
-                10'b0000000001: digit = 4'b0000;
+                10'b0000000001: begin
+                    D = 4'b0000;
+                    validn = 0;
+                end
+
+                // Caso em que nenhuma tecla está sendo pressionada
+                10'b0000000000: validn = 1;
 
                 // Input inválido
                 default: begin
@@ -378,21 +411,38 @@ module MagnetronControl(
   input door_closed,
   input timer_done,
   output Enabler);
-
-  reg Enabler;
-  reg set, reset;
   
-  always @(*)
-    begin
-      
-      set = (start && door_closed);
-  	  reset = (stop || clear || ~door_closed || timer_done); 
-      
-      Enabler = (~set && reset) ? 0:
-    	(set && ~reset) ? 1:
-    	(set && reset) ? 0:
-    	Enabler;
-    end
 
-    
+  wire set, reset;
+  
+  logic_and_or_not B_logic(start, stop, clear, door_closed, timer_done, set, reset);
+  sr_latch latch(set, reset, Enabler);
+ 
+  
+endmodule
+
+
+module logic_and_or_not(input start, input stop, input clear, input door_closed, input timer_done, output wire set, output wire reset);
+	
+  	assign set = (start && door_closed);
+  	assign reset = (stop || clear || ~door_closed || timer_done); 
+  
+endmodule
+
+
+module sr_latch(
+    input set,
+    input reset,
+    output Q
+    );
+	
+  	reg Q;
+  
+    always @(*)
+      begin
+        Q = (~set && reset) ? 0:
+          (set && ~reset) ? 1:
+          (set && reset) ? 0:
+          Q;
+      end
 endmodule
