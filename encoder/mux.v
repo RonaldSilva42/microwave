@@ -5,11 +5,11 @@ module mux(
 
     always @(sel, posedge pgt, clk) begin
         if (sel == 0) begin
-            out <= pgt;
+            out <= clk;
         end
 
         else begin
-            out <= clk;
+            out <= pgt;
         end
     end
 endmodule

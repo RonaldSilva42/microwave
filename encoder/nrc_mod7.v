@@ -15,11 +15,9 @@ module counter_mod7(
             count <= count + 1;
         end
 
-        if (count < 4) begin
-            pgt <= 0;
-        end
-        
-        else begin
+        pgt <= 0;
+
+        if (count == 4) begin
             pgt <= 1;
         end
     end

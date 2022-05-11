@@ -8,7 +8,7 @@ module priority_encoder (
 
     always @(keypad, enablen) begin
         // Está desligado, então não acontece nada
-        if (enablen == 1) begin
+        if (enablen == 0) begin
             validn = 1;
         end
 
