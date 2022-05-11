@@ -7,27 +7,44 @@ module microwave(input wire [9:0] keypad,
   wire [3:0] sec_one, sec_ten, min, D;
   
   assign mag_on = mag;
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
+  MagnetronControl mag_control(
+    .start(startn),
+    .stop(stopn),
+    .clear(clearn),
+    .door_closed(door_closed),
+    .timer_done(zero),
+    .Enabler(mag));
   
+  encoder encoder_1(
+    .keypad(keypad),
+    .clk(clock),
+    .enablen(mag),
+    .D(D),
+    .pgt_1hz(pgt),
+    .loadn(load));
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  timer timer_1(
+    .data(D),
+    .loadn(load),
+    .clock(pgt),
+    .clrn(clearn),
+    .en(mag),
+    .sec_ones(sec_one),
+    .sec_tens(sec_ten),
+    .mins(min),
+    .zero(zero));
+
+  decoder decoder_1(
+    .sec_ones(sec_one),
+    .sec_tens(sec_ten),
+    .min(min),
+    .sec_ones_segs(sec_ones_segs),
+    .sec_tens_segs(sec_tens_segs),
+    .min_segs(min_segs));
+
+endmodule
+
   //módulos
   
   //timer
