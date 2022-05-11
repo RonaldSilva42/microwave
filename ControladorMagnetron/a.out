@@ -1,0 +1,163 @@
+#! /usr/share/iverilog-0.9.7/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_6)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x17ebf00 .scope module, "test" "test" 2 1;
+ .timescale 0 0;
+v0x18047f0_0 .net "Enabler", 0 0, v0x17dc220_0; 1 drivers
+v0x1804890_0 .var "clear", 0 0;
+v0x1804940_0 .var "door_closed", 0 0;
+v0x18049f0_0 .var "start", 0 0;
+v0x1804ad0_0 .var "stop", 0 0;
+v0x1804b80_0 .var "timer_done", 0 0;
+S_0x17ebff0 .scope module, "dut" "MagnetronControl" 2 6, 3 1, S_0x17ebf00;
+ .timescale 0 0;
+v0x17dc220_0 .var "Enabler", 0 0;
+v0x18042f0_0 .net "clear", 0 0, v0x1804890_0; 1 drivers
+v0x1804390_0 .net "door_closed", 0 0, v0x1804940_0; 1 drivers
+v0x1804430_0 .var "reset", 0 0;
+v0x18044e0_0 .var "set", 0 0;
+v0x1804580_0 .net "start", 0 0, v0x18049f0_0; 1 drivers
+v0x1804660_0 .net "stop", 0 0, v0x1804ad0_0; 1 drivers
+v0x1804700_0 .net "timer_done", 0 0, v0x1804b80_0; 1 drivers
+E_0x17c8230/0 .event edge, v0x1804580_0, v0x1804390_0, v0x1804660_0, v0x18042f0_0;
+E_0x17c8230/1 .event edge, v0x1804700_0, v0x18044e0_0, v0x1804430_0, v0x17dc220_0;
+E_0x17c8230 .event/or E_0x17c8230/0, E_0x17c8230/1;
+    .scope S_0x17ebff0;
+T_0 ;
+    %wait E_0x17c8230;
+    %load/v 8, v0x1804580_0, 1;
+    %load/v 9, v0x1804390_0, 1;
+    %and 8, 9, 1;
+    %set/v v0x18044e0_0, 8, 1;
+    %load/v 8, v0x1804660_0, 1;
+    %load/v 9, v0x18042f0_0, 1;
+    %or 8, 9, 1;
+    %load/v 9, v0x1804390_0, 1;
+    %inv 9, 1;
+    %or 8, 9, 1;
+    %load/v 9, v0x1804700_0, 1;
+    %or 8, 9, 1;
+    %set/v v0x1804430_0, 8, 1;
+    %load/v 8, v0x18044e0_0, 1;
+    %inv 8, 1;
+    %load/v 9, v0x1804430_0, 1;
+    %and 8, 9, 1;
+    %jmp/0  T_0.0, 8;
+    %mov 9, 0, 1;
+    %jmp/1  T_0.2, 8;
+T_0.0 ; End of true expr.
+    %load/v 10, v0x18044e0_0, 1;
+    %load/v 11, v0x1804430_0, 1;
+    %inv 11, 1;
+    %and 10, 11, 1;
+    %jmp/0  T_0.3, 10;
+    %mov 11, 1, 1;
+    %jmp/1  T_0.5, 10;
+T_0.3 ; End of true expr.
+    %load/v 12, v0x18044e0_0, 1;
+    %load/v 13, v0x1804430_0, 1;
+    %and 12, 13, 1;
+    %jmp/0  T_0.6, 12;
+    %mov 13, 0, 1;
+    %jmp/1  T_0.8, 12;
+T_0.6 ; End of true expr.
+    %load/v 14, v0x17dc220_0, 1;
+    %jmp/0  T_0.7, 12;
+ ; End of false expr.
+    %blend  13, 14, 1; Condition unknown.
+    %jmp  T_0.8;
+T_0.7 ;
+    %mov 13, 14, 1; Return false value
+T_0.8 ;
+    %jmp/0  T_0.4, 10;
+ ; End of false expr.
+    %blend  11, 13, 1; Condition unknown.
+    %jmp  T_0.5;
+T_0.4 ;
+    %mov 11, 13, 1; Return false value
+T_0.5 ;
+    %jmp/0  T_0.1, 8;
+ ; End of false expr.
+    %blend  9, 11, 1; Condition unknown.
+    %jmp  T_0.2;
+T_0.1 ;
+    %mov 9, 11, 1; Return false value
+T_0.2 ;
+    %set/v v0x17dc220_0, 9, 1;
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_0x17ebf00;
+T_1 ;
+    %vpi_call 2 9 "$dumpfile", "MagnetronControl.vcd";
+    %vpi_call 2 10 "$dumpvars", 1'sb0, S_0x17ebf00;
+    %set/v v0x18049f0_0, 1, 1;
+    %set/v v0x1804ad0_0, 0, 1;
+    %set/v v0x1804890_0, 0, 1;
+    %set/v v0x1804940_0, 1, 1;
+    %set/v v0x1804b80_0, 0, 1;
+    %delay 10, 0;
+    %set/v v0x18049f0_0, 0, 1;
+    %set/v v0x1804ad0_0, 0, 1;
+    %set/v v0x1804890_0, 0, 1;
+    %set/v v0x1804940_0, 1, 1;
+    %set/v v0x1804b80_0, 0, 1;
+    %delay 10, 0;
+    %set/v v0x18049f0_0, 1, 1;
+    %set/v v0x1804ad0_0, 0, 1;
+    %set/v v0x1804890_0, 0, 1;
+    %set/v v0x1804940_0, 0, 1;
+    %set/v v0x1804b80_0, 0, 1;
+    %delay 10, 0;
+    %set/v v0x18049f0_0, 0, 1;
+    %set/v v0x1804ad0_0, 0, 1;
+    %set/v v0x1804890_0, 0, 1;
+    %set/v v0x1804940_0, 0, 1;
+    %set/v v0x1804b80_0, 0, 1;
+    %delay 10, 0;
+    %set/v v0x18049f0_0, 1, 1;
+    %set/v v0x1804ad0_0, 0, 1;
+    %set/v v0x1804890_0, 0, 1;
+    %set/v v0x1804940_0, 1, 1;
+    %set/v v0x1804b80_0, 0, 1;
+    %delay 10, 0;
+    %set/v v0x18049f0_0, 0, 1;
+    %set/v v0x1804ad0_0, 1, 1;
+    %set/v v0x1804890_0, 0, 1;
+    %set/v v0x1804940_0, 1, 1;
+    %set/v v0x1804b80_0, 0, 1;
+    %delay 10, 0;
+    %set/v v0x18049f0_0, 1, 1;
+    %set/v v0x1804ad0_0, 0, 1;
+    %set/v v0x1804890_0, 0, 1;
+    %set/v v0x1804940_0, 1, 1;
+    %set/v v0x1804b80_0, 0, 1;
+    %delay 10, 0;
+    %set/v v0x18049f0_0, 0, 1;
+    %set/v v0x1804ad0_0, 0, 1;
+    %set/v v0x1804890_0, 1, 1;
+    %set/v v0x1804940_0, 1, 1;
+    %set/v v0x1804b80_0, 0, 1;
+    %delay 10, 0;
+    %set/v v0x18049f0_0, 1, 1;
+    %set/v v0x1804ad0_0, 0, 1;
+    %set/v v0x1804890_0, 0, 1;
+    %set/v v0x1804940_0, 1, 1;
+    %set/v v0x1804b80_0, 0, 1;
+    %delay 10, 0;
+    %set/v v0x18049f0_0, 0, 1;
+    %set/v v0x1804ad0_0, 0, 1;
+    %set/v v0x1804890_0, 0, 1;
+    %set/v v0x1804940_0, 1, 1;
+    %set/v v0x1804b80_0, 1, 1;
+    %delay 10, 0;
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "testbench.sv";
+    "design.sv";
