@@ -3,13 +3,13 @@ module mux(
     output reg out
 );
 
-    always @(sel, posedge pgt, clk) begin
+    always @(*) begin
         if (sel == 0) begin
-            out <= clk;
+            out = clk;
         end
 
         else begin
-            out <= pgt;
+            out = pgt;
         end
     end
 endmodule

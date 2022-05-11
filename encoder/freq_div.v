@@ -5,12 +5,12 @@ module freq_div(
   
   integer count = 0;
   
-  always @(posedge clock)
-    begin
+  always @(posedge clock) begin
       if(count != 100)
         begin
           div_clk = 0;
         end
+
       else
         begin
           count = 0;
@@ -18,5 +18,5 @@ module freq_div(
         end
       
       count = count + 1;
-    end
+  end
 endmodule

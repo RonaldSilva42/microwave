@@ -1,33 +1,23 @@
 `timescale 1ms/1ms
 
-module encoder_tb;
+module priority_encoder_tb;
     reg [9:0] keypad_tb;
-    reg clk_tb, enablen_tb;
+    reg enablen_tb;
 
     wire [3:0] D_tb;
-    wire pgt1_hz_tb, loadn_tb;
+    wire validn_tb;
 
-    encoder uut (
+    priority_encoder uut (
     .keypad(keypad_tb),
-    .clk(clk_tb),
     .enablen(enablen_tb),
     .D(D_tb),
-    .pgt_1hz(pgt1_hz_tb),
-    .loadn(loadn_tb));
-
-    initial begin 
-        clk_tb = 0;
-
-        forever begin
-            #5 clk_tb = ~clk_tb;
-        end 
-    end
+    .validn(validn_tb));
 
     initial
         begin
 
-            $dumpfile("encoder.vcd");
-            $dumpvars(0, encoder_tb);
+            $dumpfile("priority_encoder.vcd");
+            $dumpvars(0, priority_encoder_tb);
 
             enablen_tb = 1;
             #5;
@@ -62,10 +52,6 @@ module encoder_tb;
             // Input inválido
             keypad_tb = 10'b1000010000;
             #100;
-
-            // Testando o clock durante o funcionamento do microondas
-            enablen_tb = 0;
-            #2000;
 
             $finish;
         end

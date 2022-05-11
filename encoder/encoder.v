@@ -8,7 +8,7 @@ module encoder(
 
     wire validn, div_clk, pgt;
 
-    priority_encoder p_encoder (.keypad(keypad), .enablen(enablen), .digit(D), .validn(validn));
+    priority_encoder p_encoder (.keypad(keypad), .enablen(enablen), .D(D), .validn(validn));
 
     freq_div div (.clock(clk), .div_clk(div_clk));
 

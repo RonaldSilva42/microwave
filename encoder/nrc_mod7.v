@@ -6,19 +6,23 @@ module counter_mod7(
 
     integer count = 0;
 
+    always @(negedge clear) begin
+        if (count == 7) begin
+            count = 0;
+        end
+    end
+
     always @(posedge clk) begin
-        if (clear == 0) begin
-            count <= 0;
+        if (count < 7) begin
+            count = count + 1;
         end
-
-        else if (count < 7) begin
-            count <= count + 1;
-        end
-
-        pgt <= 0;
 
         if (count == 4) begin
-            pgt <= 1;
+            pgt = 1;
+        end
+
+        else begin
+            pgt = 0;
         end
     end
 endmodule
