@@ -8,11 +8,9 @@ module sr_latch(
   
     always @(*)
       begin
-        Q = (~set && reset) ? 0:
-          (set && ~reset) ? 1:
-          (set && reset) ? 0:
+        Q = (~set && reset) ? 1:
+        (set && ~reset) ? 0:
+        (set && reset) ? 1:
           Q;
       end
 endmodule
-
-
