@@ -11,36 +11,29 @@ module mod_6_bcd(
   
   
   assign tc = ((tens == 4'b0000) && (en == 1)) ? 1 : 0;
-  assign zero = (tens == 4'b0000) ? 1 : 0;
+  assign zero = (tens === 4'b0000 || tens === 4'bXXXX) ? 1 : 0;
   
-  always@(posedge clk, negedge clrn)
-    begin
-      
-      if(!clrn)
-        begin
-          tens <= 0;
-        end
-      else
-        begin
+  initial begin
+    tens = 4'b0000;
+  end
+  
+  always@(negedge clrn) begin
+    tens <= 0;
+  end
+  
+  always@(posedge clk) begin
           if(!en)
             begin
               if(!loadn)
-                begin
                   tens <= data;
-                end
             end
           else
             begin
               if(tens == 0)
-                begin
                   tens <= 5;
-                end
               else
-                begin
-                	tens <= tens - 1;
-                end
+                tens <= tens - 1;
             end
         end
-    end
   
 endmodule
