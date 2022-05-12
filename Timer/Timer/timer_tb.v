@@ -2,6 +2,7 @@ module timer_tb;
   reg [3:0] Data;
   reg Clock, Clear, Load, En;
   
+  integer i;
   wire [3:0] Sec_ones, Sec_tens, Mins;
   wire Zero;
   
@@ -22,24 +23,26 @@ module timer_tb;
   end
   
   initial begin
-    Clock = 0;
-    forever #500 Clock = ~Clock;
+    
+    for(i = 0; i < 2500; i = i+1) begin
+          #500 Clock <= !Clock;
+        end
   end
   
   initial begin
-    Clear = 1;
-    En = 0;
+    Load = 0; Clear = 0; En = 0; Data = 4'b0111; Clock = 1; //insere o 7 nas unidades de segundos
+    #1000;
+    Data = 4'b0010; //insere o 2 nas unidades de segundos e passa o 7 para dezena de segundos 
     
-    Load = 0;
-    Data = 5;
-    #1000 Load = 1;
+    #1000;
     
-    #9000;
+    Data = 4'b0100; //insere o 4 nas unidades de segundos, passa o 2 para dezena de segundos e o 7 para minutos
     
-    En = 1; //iniciar a cont
+    #1000;
+    Load = 1;
+    En = 1;
     
-    #15000;
-    
+    #5000;
     En = 0; //pausa
     
     #5000;
@@ -55,6 +58,5 @@ module timer_tb;
     #15000;
     
     En = 0; //pausa o cronometro
-    $finish();
   end
 endmodule
