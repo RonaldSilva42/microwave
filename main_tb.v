@@ -30,7 +30,7 @@ module microwave_tb;
   end
   
   initial begin
-    start = 0; stop = 1; clear = 0; door = 1; 
+    start = 1; stop = 0; door = 1; clear = 1; 
     #5;
 
     key = 10'b0000000000;
@@ -51,8 +51,8 @@ module microwave_tb;
     key = 10'b100000000; 
     #100;
 
-    start = 1; stop = 0; clear = 0; door = 1; 
-    #2000; 
+    start = 0; stop = 1;
+    #50000; 
 
     $finish();
   end

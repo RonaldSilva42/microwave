@@ -3,8 +3,9 @@ module encoder(
     input clk, enablen,
 
     output wire [3:0] D,
-    output wire pgt_1hz, loadn, enable
+    output wire pgt_1hz, loadn
 );
+    wire enable;
     assign enable = ~enablen;
 
     wire valid, div_clk, pgt;

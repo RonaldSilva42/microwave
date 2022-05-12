@@ -14,5 +14,3 @@ module sr_latch(
           Q;
       end
 endmodule
-
-

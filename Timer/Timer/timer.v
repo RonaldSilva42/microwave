@@ -6,6 +6,8 @@ module timer(
   
   wire en_st, en_min;
   wire zero_so, zero_st, zero_min;
+
+  assign zero = 0;
   
   mod_10_bcd unit_sec(
     .data(data),

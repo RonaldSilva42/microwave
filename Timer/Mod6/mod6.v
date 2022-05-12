@@ -11,11 +11,7 @@ module mod_6_bcd(
   
   
   assign tc = ((tens == 4'b0000) && (en == 1)) ? 1 : 0;
-  assign zero = (tens === 4'b0000 || tens === 4'bXXXX) ? 1 : 0;
-  
-  initial begin
-    tens = 4'b0000;
-  end
+  assign zero = (tens === 4'b0000) ? 1 : 0;
   
   always@(negedge clrn) begin
     tens <= 0;
