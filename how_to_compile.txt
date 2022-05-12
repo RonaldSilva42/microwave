@@ -1,0 +1,4 @@
+Microwave:
+$ iverilog -o main main.v main_tb.v Control/AndNotOr/LogicL3ANDNOTOR.sv Control/Controller/MagnetronController.sv Control/Latch/Sr_latch.sv Decoder/decoder.v Encoder/Encoder/encoder.v Encoder/Priority_encoder/priority_encoder.v Encoder/Counter/nrc_mod7.v Encoder/Mux/mux.v Encoder/Div/freq_div.v Timer/Mod6/mod6.v Timer/Mod10/mod10.v Timer/Timer/timer.v
+$ vvp main 
+$ gtkwave microwave.vcd

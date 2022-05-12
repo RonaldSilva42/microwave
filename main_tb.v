@@ -20,7 +20,7 @@ module microwave_tb;
     .mag_on(mag));
   
   initial begin
-    $dumpfile("microwave_tb.vcd");
+    $dumpfile("microwave.vcd");
     $dumpvars(0,microwave_tb);
   end
   
@@ -31,23 +31,28 @@ module microwave_tb;
   
   initial begin
     start = 0; stop = 1; clear = 0; door = 1; 
-    #50;
-    start = 1; stop = 0; key = 10'b0000000000;
-    #50;
+    #5;
+
+    key = 10'b0000000000;
+    #5;
+
     key = 10'b000001000; 
-    #50; key = 10'b0000000000;
+    #100; 
+
+    key = 10'b0000000000;
+    #5;
     
-    #150; key = 10'b0000000001;
+    key = 10'b0000000001;
+    #100;
 
-    #50; key = 10'b0000000000;
+    key = 10'b0000000000;
+    #5;
             
-    #150; key = 10'b000000101; 
+    key = 10'b100000000; 
+    #100;
 
-    #50; key = 10'b0000000000; 
-
-
-   	#200; start = 0;
-    #50; start = 1; 
+    start = 1; stop = 0; clear = 0; door = 1; 
+    #2000; 
 
     $finish();
   end
