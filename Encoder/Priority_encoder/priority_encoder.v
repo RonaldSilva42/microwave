@@ -1,14 +1,14 @@
 module priority_encoder (
     input [9:0] keypad,
-    input enable,
+    input enablen,
 
     output reg [3:0] D,
     output reg valid
 );
 
-    always @(keypad, enable) begin
+    always @(keypad, enablen) begin
         // O microondas está funcionando, logo não é possível pressionar nenhuma tecla
-        if (enable == 1) begin
+        if (enablen == 0) begin
             valid = 0;
         end
 

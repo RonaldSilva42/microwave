@@ -4,7 +4,7 @@ module mux(
 );
 
     always @(*) begin
-        if (sel == 1) begin
+        if (sel == 0) begin
             out = clk;
         end
 

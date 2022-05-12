@@ -29,7 +29,7 @@ module encoder_tb;
             $dumpfile("encoder.vcd");
             $dumpvars(0, encoder_tb);
 
-            enablen_tb = 1;
+            enablen_tb = 0;
             #5;
         
             keypad_tb = 10'b0000000000;
@@ -64,7 +64,7 @@ module encoder_tb;
             #100;
 
             // Testando o clock durante o funcionamento do microondas
-            enablen_tb = 0;
+            enablen_tb = 1;
             #2000;
 
             $finish;

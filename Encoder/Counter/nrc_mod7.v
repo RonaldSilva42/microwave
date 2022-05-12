@@ -6,7 +6,7 @@ module counter_mod7(
 
     integer count = 0;
 
-    always @(posedge clear) begin
+    always @(negedge clear) begin
         if (count == 7) begin
             count = 0;
         end
