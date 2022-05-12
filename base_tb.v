@@ -30,11 +30,25 @@ module microwave_tb;
   end
   
   initial begin
-    key = 10'b1000000100; start = 1; stop = 0; clear = 0; door = 1; #100; //Recebe tempo e pressiona start
-    key = 10'b0000000001; start = 0;  #100; //Ligado
-    key = 10'b0000000001;  #100; //Continua com a mesma configuração anterior para testar o end_timer
-    key = 10'b1000000100; start = 1; stop = 0; clear = 0; door = 1; #100; //Reinicia
-    key = 10'b0000000000;  door = 0; #100; //Desliga abrindo a porta
+    start = 0; stop = 1; clear = 0; door = 1; 
+    #50;
+    start = 1; stop = 0; key = 10'b0000000000;
+    #50;
+    key = 10'b000001000; 
+    #50; key = 10'b0000000000;
+    
+    #150; key = 10'b0000000001;
+
+    #50; key = 10'b0000000000;
+            
+    #150; key = 10'b000000101; 
+
+    #50; key = 10'b0000000000; 
+
+
+   	#200; start = 0;
+    #50; start = 1; 
+
     $finish();
   end
 endmodule
