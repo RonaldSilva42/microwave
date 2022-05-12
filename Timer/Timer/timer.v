@@ -7,7 +7,8 @@ module timer(
   wire en_st, en_min;
   wire zero_so, zero_st, zero_min;
   
-  mod_10_bcd unit_sec(.data(data),
+  mod_10_bcd unit_sec(
+    .data(data),
     .loadn(loadn),
     .clrn(clrn),
     .clk(clock),
