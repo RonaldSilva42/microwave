@@ -2,16 +2,16 @@
 
 module priority_encoder_tb;
     reg [9:0] keypad_tb;
-    reg enablen_tb;
+    reg enable_tb;
 
     wire [3:0] D_tb;
-    wire validn_tb;
+    wire valid_tb;
 
     priority_encoder uut (
     .keypad(keypad_tb),
-    .enablen(enablen_tb),
+    .enable(enable_tb),
     .D(D_tb),
-    .validn(validn_tb));
+    .valid(valid_tb));
 
     initial
         begin
@@ -19,7 +19,7 @@ module priority_encoder_tb;
             $dumpfile("priority_encoder.vcd");
             $dumpvars(0, priority_encoder_tb);
 
-            enablen_tb = 1;
+            enable_tb = 0;
             #5;
         
             keypad_tb = 10'b0000000000;

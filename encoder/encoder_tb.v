@@ -2,18 +2,18 @@
 
 module encoder_tb;
     reg [9:0] keypad_tb;
-    reg clk_tb, enablen_tb;
+    reg clk_tb, enable_tb;
 
     wire [3:0] D_tb;
-    wire pgt1_hz_tb, loadn_tb;
+    wire pgt1_hz_tb, load_tb;
 
     encoder uut (
     .keypad(keypad_tb),
     .clk(clk_tb),
-    .enablen(enablen_tb),
+    .enable(enable_tb),
     .D(D_tb),
     .pgt_1hz(pgt1_hz_tb),
-    .loadn(loadn_tb));
+    .load(load_tb));
 
     initial begin 
         clk_tb = 0;
@@ -29,7 +29,7 @@ module encoder_tb;
             $dumpfile("encoder.vcd");
             $dumpvars(0, encoder_tb);
 
-            enablen_tb = 1;
+            enable_tb = 0;
             #5;
         
             keypad_tb = 10'b0000000000;
@@ -64,7 +64,7 @@ module encoder_tb;
             #100;
 
             // Testando o clock durante o funcionamento do microondas
-            enablen_tb = 0;
+            enable_tb = 1;
             #2000;
 
             $finish;
