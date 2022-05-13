@@ -2,13 +2,13 @@ module counter_mod7_tb;
   reg clk, clear;
   wire pgt;
   
-  counter_mod8 uut(
+  counter_mod7 uut(
     .clk(clk),
     .clear(clear),
     .pgt(pgt));
   
   initial begin
-    $dumpfile("counter_mod7_tb.vcd");
+    $dumpfile("counter_mod7.vcd");
     $dumpvars(0,counter_mod7_tb);
   end
   

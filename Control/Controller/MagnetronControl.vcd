@@ -1,0 +1,76 @@
+$date
+	Thu May 12 22:08:09 2022
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module test $end
+$var wire 1 ! Enabler $end
+$var reg 1 " clear $end
+$var reg 1 # door_closed $end
+$var reg 1 $ start $end
+$var reg 1 % stop $end
+$var reg 1 & timer_done $end
+$scope module dut $end
+$var wire 1 " clear $end
+$var wire 1 # door_closed $end
+$var wire 1 $ start $end
+$var wire 1 % stop $end
+$var wire 1 & timer_done $end
+$var wire 1 ' set $end
+$var wire 1 ( reset $end
+$var wire 1 ! Enabler $end
+$scope module B_logic $end
+$var wire 1 " clear $end
+$var wire 1 # door_closed $end
+$var wire 1 ( reset $end
+$var wire 1 ' set $end
+$var wire 1 $ start $end
+$var wire 1 % stop $end
+$var wire 1 & timer_done $end
+$upscope $end
+$scope module latch $end
+$var wire 1 ( reset $end
+$var wire 1 ' set $end
+$var reg 1 ! Q $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+1(
+0'
+0&
+1%
+1$
+0#
+1"
+0!
+$end
+#10
+1!
+0(
+1'
+1#
+0$
+#20
+0'
+1$
+#30
+0!
+1(
+0%
+#40
+0#
+1%
+#50
+1!
+0(
+1'
+1#
+0$
+#60
