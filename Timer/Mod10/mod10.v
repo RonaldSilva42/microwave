@@ -10,7 +10,7 @@ module mod_10_bcd(
   //zero = 1 quando ones = 4'b000
 
   assign tc = ((ones == 4'b0000) && (en == 1)) ? 1 : 0;
-  assign zero = (ones === 4'b0000 || ones === 4'bXXXX) ? 1 : 0;
+  assign zero = (ones === 4'b0000) ? 1 : 0;
   
   always@(negedge clrn) begin
     ones <= 0;
@@ -29,10 +29,5 @@ module mod_10_bcd(
               else
                 ones <= ones - 1;
             end
-        end
-  
-  
+        end 
 endmodule
-  
-  
-    

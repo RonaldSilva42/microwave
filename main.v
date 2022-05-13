@@ -3,7 +3,7 @@ module microwave(input wire [9:0] keypad,
                  output wire [6:0] sec_ones_segs, sec_tens_segs, min_segs,
                  output wire mag_on);
   
-  wire zero, pgt, load, mag;
+  wire zero, pgt, loadn, mag;
   wire [3:0] sec_one, sec_ten, min, D;
   
   MagnetronControl mag_control(
@@ -17,17 +17,17 @@ module microwave(input wire [9:0] keypad,
   encoder encoder_1(
     .keypad(keypad),
     .clk(clock),
-    .enable(mag),
+    .enablen(mag),
     .D(D),
     .pgt_1hz(pgt),
-    .load(load));
+    .loadn(loadn));
   
   timer timer_1(
     .data(D),
-    .loadn(load),
+    .loadn(loadn),
     .clock(pgt),
     .clrn(clearn),
-    .en(mag_on),
+    .en(mag),
     .sec_ones(sec_one),
     .sec_tens(sec_ten),
     .mins(min),

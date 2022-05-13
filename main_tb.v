@@ -20,7 +20,7 @@ module microwave_tb;
     .mag_on(mag));
   
   initial begin
-    $dumpfile("microwave.vcd");
+    $dumpfile("main.vcd");
     $dumpvars(0,microwave_tb);
   end
   
@@ -30,13 +30,14 @@ module microwave_tb;
   end
   
   initial begin
-    start = 0; stop = 1; clear = 0; door = 1; 
+    start = 1; stop = 0; door = 1; clear = 1; 
     #5;
 
+    // 6:01
     key = 10'b0000000000;
     #5;
 
-    key = 10'b000001000; 
+    key = 10'b0000010000; 
     #100; 
 
     key = 10'b0000000000;
@@ -48,11 +49,41 @@ module microwave_tb;
     key = 10'b0000000000;
     #5;
             
-    key = 10'b100000000; 
+    key = 10'b1000000000; 
     #100;
 
-    start = 1; stop = 0; clear = 0; door = 1; 
-    #2000; 
+    start = 0; stop = 1;
+    #50000;
+
+    stop = 0; start = 1; // Testando se ele para
+    #5000;
+
+    clear = 0; // Clear
+
+    // 0:55
+    key = 10'b0000000000;
+    #5;
+
+    key = 10'b0000000001; 
+    #100; 
+
+    key = 10'b0000000000;
+    #5;
+    
+    key = 10'b0000100000;
+    #100;
+
+    key = 10'b0000000000;
+    #5;
+            
+    key = 10'b0000100000; 
+    #100;
+
+    start = 0; stop = 1; clear = 1;
+    #50000;
+
+    door = 0; start = 1;// Abrindo a porta durante a contagem
+    #5000;
 
     $finish();
   end
